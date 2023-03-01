@@ -2,10 +2,8 @@ package zstu.edu.eduservice.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import zstu.edu.eduservice.entity.EduTeacher;
 import zstu.edu.eduservice.service.EduTeacherService;
 
@@ -32,6 +30,11 @@ public class EduTeacherController {
         return teacherService.list(null);
     }
 
+    // 逻辑删除讲师
+    @DeleteMapping("delete/{id}")
+    public boolean removeTeacher(@PathVariable String id) { // 获取路径中的id
+        return teacherService.removeById(id);
+    }
 
 }
 

@@ -1,9 +1,11 @@
-package zstu.edu;
+package zstu.edu.eduservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {"zstu.edu"})
 //@MapperScan("zstu.edu.eduservice.mapper")
 public class EduApplication {
     public static void main(String[] args) {
