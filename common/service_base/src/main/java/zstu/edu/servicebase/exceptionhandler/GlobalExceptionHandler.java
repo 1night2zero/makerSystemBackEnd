@@ -1,12 +1,15 @@
 package zstu.edu.servicebase.exceptionhandler;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import zstu.edu.commonutils.ExceptionUtil;
 import zstu.edu.commonutils.R;
 
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
@@ -27,7 +30,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MyException.class)
     @ResponseBody
     public R error(MyException e) {
-        e.printStackTrace();
+        log.error(ExceptionUtil.getMessage(e));
         return R.error().code(e.getCode()).message(e.getMsg());
     }
 
