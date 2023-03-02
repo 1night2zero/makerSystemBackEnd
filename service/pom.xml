@@ -22,11 +22,11 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>zstu.edu</groupId>-->
-        <!--            <artifactId>comment_utils</artifactId>-->
-        <!--            <version>0.0.1-SNAPSHOT</version>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>zstu.edu</groupId>
+            <artifactId>common_utils</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <!--httpclient-->
         <dependency>
