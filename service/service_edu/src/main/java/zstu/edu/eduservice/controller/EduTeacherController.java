@@ -14,6 +14,7 @@ import zstu.edu.commonutils.R;
 import zstu.edu.eduservice.entity.EduTeacher;
 import zstu.edu.eduservice.entity.vo.TeacherQuery;
 import zstu.edu.eduservice.service.EduTeacherService;
+import zstu.edu.servicebase.exceptionhandler.MyException;
 
 import java.util.List;
 
@@ -44,7 +45,6 @@ public class EduTeacherController {
     @GetMapping("findAll")
     public R findAllTeacher() {
         List<EduTeacher> list = teacherService.list(null);
-
         return R.ok().data("items", list);
     }
 
