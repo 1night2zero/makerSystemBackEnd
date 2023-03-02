@@ -15,9 +15,7 @@ import zstu.edu.eduservice.entity.EduTeacher;
 import zstu.edu.eduservice.entity.vo.TeacherQuery;
 import zstu.edu.eduservice.service.EduTeacherService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -50,9 +48,21 @@ public class EduTeacherController {
         return R.ok().data("items", list);
     }
 
+    // 添加讲师
+    @ApiOperation(value = "添加讲师")
+    @PostMapping("addTeacher")
+    public R addTeacher(@RequestBody EduTeacher eduTeacher) {
+        boolean save = teacherService.save(eduTeacher);
+        if (save) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
     // 逻辑删除讲师
     @ApiOperation(value = "逻辑删除讲师")
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("deleteTeacher/{id}")
     public R removeTeacher(@ApiParam(name = "id", value = "讲师ID", required = true)
                            @PathVariable String id) { // 获取路径中的id
         boolean flag = teacherService.removeById(id);
@@ -61,6 +71,26 @@ public class EduTeacherController {
         } else {
             return R.error();
 
+        }
+    }
+
+    // 根据讲师id查询
+    @ApiOperation(value = "根据讲师id查询")
+    @GetMapping("getTeacher/{id}")
+    public R getTeacher(@PathVariable String id) {
+        EduTeacher eduTeacher = teacherService.getById(id);
+        return R.ok().data("teacher", eduTeacher);
+    }
+
+    // 讲师修改
+    @ApiOperation(value = "讲师修改")
+    @PostMapping("updateTeacher")
+    public R updateTeacher(@RequestBody EduTeacher eduTeacher) {
+        boolean flag = teacherService.updateById(eduTeacher);
+        if (flag) {
+            return R.ok();
+        } else {
+            return R.error();
         }
     }
 
@@ -73,10 +103,6 @@ public class EduTeacherController {
         teacherService.page(teacherPage, null);
         long total = teacherPage.getTotal();    // 总记录数
         List<EduTeacher> records = teacherPage.getRecords();    // 数据集合
-//        Map map = new HashMap<>();
-//        map.put("total", total);
-//        map.put("rows", records);
-//        return R.ok().data(map);
         return R.ok().data("total", total).data("rows", records);
     }
 
