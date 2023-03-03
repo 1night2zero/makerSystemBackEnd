@@ -1,13 +1,11 @@
 package zstu.edu.eduservice.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import zstu.edu.commonutils.R;
 
 @RestController
 @RequestMapping("/eduservice/user")
+@CrossOrigin    // 跨域
 public class EduLoginController {
     @PostMapping("login")
     public R login() {

@@ -35,6 +35,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/eduservice/edu-teacher")
 @Api(description = "讲师管理")
+@CrossOrigin
 public class EduTeacherController {
     /* localhost:8001 */
     @Autowired
@@ -122,6 +123,10 @@ public class EduTeacherController {
         Integer level = teacherQuery.getLevel();
         String begin = teacherQuery.getBegin();
         String end = teacherQuery.getEnd();
+
+        //排序
+        wrapper.orderBy(true, false, "gmt_create");
+
         // 判断条件值是否为空，如果不为空拼接条件
         if (!StringUtils.isEmpty(name)) {
             // 构造条件
@@ -136,7 +141,6 @@ public class EduTeacherController {
         if (!StringUtils.isEmpty(end)) {
             wrapper.le("gmt_modified", end);
         }
-
 
         teacherService.page(teacherPage, wrapper);
 
