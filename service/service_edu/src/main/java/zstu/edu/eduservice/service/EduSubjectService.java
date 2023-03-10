@@ -3,6 +3,9 @@ package zstu.edu.eduservice.service;
 import org.springframework.web.multipart.MultipartFile;
 import zstu.edu.eduservice.entity.EduSubject;
 import com.baomidou.mybatisplus.extension.service.IService;
+import zstu.edu.eduservice.entity.subject.FirstSubject;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface EduSubjectService extends IService<EduSubject> {
 
     void saveSubject(MultipartFile file, EduSubjectService eduSubjectService);
+
+    List<FirstSubject> getAllOneTwoSubject();
 }

@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import zstu.edu.commonutils.R;
+import zstu.edu.eduservice.entity.subject.FirstSubject;
 import zstu.edu.eduservice.service.EduSubjectService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,6 +40,15 @@ public class EduSubjectController {
         // 上传过来的excel文件
         eduSubjectService.saveSubject(file, eduSubjectService);
         return R.ok();
+    }
+
+    // 课程分类列表（树形）
+    @ApiOperation(value = "课程分类列表（树形）")
+    @PostMapping("getAllSubject")
+    public R getAllSubject() {
+        // list集合泛型是一级分类
+        List<FirstSubject> list = eduSubjectService.getAllOneTwoSubject();
+        return R.ok().data("list", list);
     }
 }
 
