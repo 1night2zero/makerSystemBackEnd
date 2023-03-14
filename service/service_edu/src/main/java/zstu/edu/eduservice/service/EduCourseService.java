@@ -1,6 +1,5 @@
 package zstu.edu.eduservice.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import zstu.edu.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import zstu.edu.eduservice.entity.vo.CourseInfoVo;
@@ -15,5 +14,5 @@ import zstu.edu.eduservice.entity.vo.CourseInfoVo;
  */
 public interface EduCourseService extends IService<EduCourse> {
 
-    void saveCourseInfo(CourseInfoVo courseInfoVo);
+    String saveCourseInfo(CourseInfoVo courseInfoVo);
 }

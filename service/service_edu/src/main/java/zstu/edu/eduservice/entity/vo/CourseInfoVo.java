@@ -1,6 +1,8 @@
 package zstu.edu.eduservice.entity.vo;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,6 +12,7 @@ import java.math.BigDecimal;
 public class CourseInfoVo {
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "课程ID")
+    @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
     @ApiModelProperty(value = "课程讲师ID")
     private String teacherId;
