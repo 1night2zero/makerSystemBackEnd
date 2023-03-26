@@ -1,9 +1,14 @@
 package zstu.edu.eduservice.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import zstu.edu.commonutils.R;
+import zstu.edu.eduservice.entity.chapter.ChapterVo;
+import zstu.edu.eduservice.service.EduChapterService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,7 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/eduservice/edu-chapter")
+@CrossOrigin
 public class EduChapterController {
+    @Autowired
+    private EduChapterService eduChapterService;
 
+    // 返回课程大纲列表
+    @PostMapping("getChapterVideo/{courseId}")
+    public R getChapterVideo(@PathVariable String courseId) {
+        List<ChapterVo> list = eduChapterService.getChapterVideoByCourseId(courseId);
+        return R.ok().data("allChapterVideo", list);
+    }
 }
 
