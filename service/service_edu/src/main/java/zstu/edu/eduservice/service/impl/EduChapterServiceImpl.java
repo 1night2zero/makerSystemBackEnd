@@ -3,6 +3,7 @@ package zstu.edu.eduservice.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import zstu.edu.commonutils.R;
 import zstu.edu.eduservice.entity.EduChapter;
 import zstu.edu.eduservice.entity.EduVideo;
 import zstu.edu.eduservice.entity.chapter.ChapterVo;
@@ -12,6 +13,7 @@ import zstu.edu.eduservice.service.EduChapterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import zstu.edu.eduservice.service.EduVideoService;
+import zstu.edu.servicebase.exceptionhandler.MyException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,9 @@ import java.util.List;
 public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChapter> implements EduChapterService {
     @Autowired
     private EduVideoService eduVideoService;
+
+    @Autowired
+    private EduChapterService eduChapterService;
 
     @Override
     public List<ChapterVo> getChapterVideoByCourseId(String courseId) {
@@ -52,12 +57,27 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
                 if (eduVideo.getChapterId().equals(eduChapter.getId())) {
                     VideoVo videoVo = new VideoVo();
                     BeanUtils.copyProperties(eduVideo, videoVo);
-                    System.out.println(eduVideo.getId());
                     videoList.add(videoVo);
                 }
             }
             chapterVo.setChildren(videoList);
         }
         return finalList;
+    }
+
+    // 删除章节的方法
+    @Override
+    public boolean deleteChapter(String chapterId) {
+        // 根据chapter ID 查询小节表，如果有数据，不进行删除
+        QueryWrapper<EduVideo> wrapper = new QueryWrapper<>();
+        wrapper.eq("chapter_id", chapterId);
+        int count = eduVideoService.count(wrapper);
+
+        if (count > 0) {
+            throw new MyException(20001, "不能删除");
+        } else {
+            int result = baseMapper.deleteById(chapterId);
+            return result > 0;
+        }
     }
 }
