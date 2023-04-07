@@ -7,6 +7,7 @@ import zstu.edu.eduservice.entity.EduChapter;
 import zstu.edu.eduservice.entity.EduCourse;
 import zstu.edu.eduservice.entity.EduCourseDescription;
 import zstu.edu.eduservice.entity.vo.CourseInfoVo;
+import zstu.edu.eduservice.entity.vo.CoursePublishVo;
 import zstu.edu.eduservice.mapper.EduCourseMapper;
 import zstu.edu.eduservice.service.EduCourseDescriptionService;
 import zstu.edu.eduservice.service.EduCourseService;
@@ -76,5 +77,13 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         courseDescription.setId(courseInfoVo.getId());
         courseDescription.setDescription(courseInfoVo.getDescription());
         courseDescriptionService.updateById(courseDescription);
+    }
+
+    // 根据课程id查询课程确认信息
+    @Override
+    public CoursePublishVo getPublishCourseInfo(String id) {
+        // 调用mapper
+        CoursePublishVo coursePublishVo = baseMapper.getPublishCourseInfo(id);
+        return coursePublishVo;
     }
 }

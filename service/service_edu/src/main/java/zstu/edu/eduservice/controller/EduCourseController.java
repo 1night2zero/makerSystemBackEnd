@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import zstu.edu.commonutils.R;
 import zstu.edu.eduservice.entity.vo.CourseInfoVo;
+import zstu.edu.eduservice.entity.vo.CoursePublishVo;
 import zstu.edu.eduservice.service.EduCourseService;
 
 /**
@@ -43,6 +44,14 @@ public class EduCourseController {
     public R updateCourseInfo(@RequestBody CourseInfoVo courseInfoVo) {
         eduCourseService.updateCourseInfo(courseInfoVo);
         return R.ok();
+    }
+
+    // 根据课程id查询课程确认信息
+    @GetMapping("getPublishCourseInfo/{id}")
+    public R getPublishCourseInfo(@PathVariable String id) {
+        CoursePublishVo publishCourseInfo = eduCourseService.getPublishCourseInfo(id);
+        System.out.println(publishCourseInfo);
+        return R.ok().data("publishCourse", publishCourseInfo);
     }
 }
 
