@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-
 public class ConstantPropertiesUtils implements InitializingBean {
     // 读取配置文件
     @Value("${aliyun.oss.file.endpoint}")
