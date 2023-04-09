@@ -9,10 +9,12 @@ import zstu.edu.eduservice.entity.EduCourseDescription;
 import zstu.edu.eduservice.entity.vo.CourseInfoVo;
 import zstu.edu.eduservice.entity.vo.CoursePublishVo;
 import zstu.edu.eduservice.mapper.EduCourseMapper;
+import zstu.edu.eduservice.service.EduChapterService;
 import zstu.edu.eduservice.service.EduCourseDescriptionService;
 import zstu.edu.eduservice.service.EduCourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import zstu.edu.eduservice.service.EduVideoService;
 import zstu.edu.servicebase.exceptionhandler.MyException;
 
 /**
@@ -28,6 +30,11 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     private EduCourseDescriptionService courseDescriptionService;
+
+    @Autowired
+    private EduVideoService videoService;
+    @Autowired
+    private EduChapterService chapterService;
 
     // 添加课程基本信息的方法
     @Override
@@ -85,5 +92,21 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         // 调用mapper
         CoursePublishVo coursePublishVo = baseMapper.getPublishCourseInfo(id);
         return coursePublishVo;
+    }
+
+    // 删除课程
+    @Override
+    public void removeCourse(String courseId) {
+        // 根据课程id删除小节
+        videoService.removeVideoByCourseId(courseId);
+        // 根据课程id删除章节
+        chapterService.removeChapterByCourseId(courseId);
+        // 根据课程id删除描述
+        courseDescriptionService.removeById(courseId);
+        // 根据课程id删除课程本身
+        int result = baseMapper.deleteById(courseId);
+        if (result == 20001) {
+            throw new MyException(20001, "删除失败");
+        }
     }
 }

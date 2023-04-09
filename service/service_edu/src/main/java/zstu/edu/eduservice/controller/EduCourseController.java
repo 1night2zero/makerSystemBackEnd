@@ -1,6 +1,7 @@
 package zstu.edu.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,8 @@ import zstu.edu.eduservice.entity.EduCourse;
 import zstu.edu.eduservice.entity.vo.CourseInfoVo;
 import zstu.edu.eduservice.entity.vo.CoursePublishVo;
 import zstu.edu.eduservice.service.EduCourseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -63,6 +66,24 @@ public class EduCourseController {
         eduCourse.setId(id);
         eduCourse.setStatus(EduCourse.STATUS_NORMAL);
         eduCourseService.updateById(eduCourse);
+        return R.ok();
+    }
+
+    // 查询课程列表
+    // TODO 条件查询带分页
+    @GetMapping("getCourseList")
+    public R getCourseList() {
+        // 已发布的课程优先显示，按Status排序
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("status");
+        List<EduCourse> list = eduCourseService.list(wrapper);
+        return R.ok().data("list", list);
+    }
+
+    // 根据id删除课程
+    @DeleteMapping("removeCourse/{courseId}")
+    public R removeCourse(@PathVariable String courseId) {
+        eduCourseService.removeCourse(courseId);
         return R.ok();
     }
 }
