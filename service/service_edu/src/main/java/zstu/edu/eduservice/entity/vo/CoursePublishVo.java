@@ -12,5 +12,6 @@ public class CoursePublishVo {
     private String subjectLevelOne;
     private String subjectLevelTwo;
     private String teacherName;
+    private String description;
     private String price; // 只用于显示
 }

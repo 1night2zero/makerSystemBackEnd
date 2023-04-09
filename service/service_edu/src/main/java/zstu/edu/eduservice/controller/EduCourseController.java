@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import zstu.edu.commonutils.R;
+import zstu.edu.eduservice.entity.EduCourse;
 import zstu.edu.eduservice.entity.vo.CourseInfoVo;
 import zstu.edu.eduservice.entity.vo.CoursePublishVo;
 import zstu.edu.eduservice.service.EduCourseService;
@@ -52,6 +53,17 @@ public class EduCourseController {
         CoursePublishVo publishCourseInfo = eduCourseService.getPublishCourseInfo(id);
         System.out.println(publishCourseInfo);
         return R.ok().data("publishCourse", publishCourseInfo);
+    }
+
+    // 课程最终发布
+    // 修改课程状态
+    @PostMapping("publishCourse/{id}")
+    public R publishCourse(@PathVariable String id) {
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(id);
+        eduCourse.setStatus(EduCourse.STATUS_NORMAL);
+        eduCourseService.updateById(eduCourse);
+        return R.ok();
     }
 }
 
