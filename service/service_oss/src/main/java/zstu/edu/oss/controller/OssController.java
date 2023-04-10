@@ -28,7 +28,6 @@ public class OssController {
         System.out.println(url);
         // 从文件中获取文件名
         // 返回上传到oss的路径
-
         return R.ok().data("url", url);
     }
 }

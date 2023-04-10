@@ -3,12 +3,21 @@ package zstu.edu.vod.service.impl;
 import com.aliyun.vod.upload.impl.UploadVideoImpl;
 import com.aliyun.vod.upload.req.UploadStreamRequest;
 import com.aliyun.vod.upload.resp.UploadStreamResponse;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
+import com.aliyuncs.vod.model.v20170321.GetPlayInfoRequest;
+import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import zstu.edu.servicebase.exceptionhandler.MyException;
 import zstu.edu.vod.service.VodService;
 import zstu.edu.vod.utils.ConstantVodUtils;
+import zstu.edu.vod.utils.InitVodClient;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -80,7 +89,60 @@ public class VodServiceImpl implements VodService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw new MyException(20001, "上传视频失败");
+        }
+    }
+
+    // 根据视频id删除阿里云视频
+
+
+    // getPlayUrl
+    @Override
+    public String getPlayUrl(String videoId) {
+        // 根据视频id获取播放地址
+        //播放地址
+        String url = null;
+        try {
+            // 初始化对象
+            DefaultAcsClient client = InitVodClient.initVodClient(ConstantVodUtils.ACCESS_KEY_ID, ConstantVodUtils.ACCESS_KEY_SECRET);
+            // 创建获取视频地址request和response
+            GetPlayInfoRequest request = new GetPlayInfoRequest();
+            GetPlayInfoResponse response = new GetPlayInfoResponse();
+            // 向request设置视频id
+            request.setVideoId(videoId);
+            // 调用初始化对象的方法，传递request，获取数据
+            response = client.getAcsResponse(request);
+            List<GetPlayInfoResponse.PlayInfo> playInfoList = response.getPlayInfoList();
+
+            for (GetPlayInfoResponse.PlayInfo playInfo : playInfoList) {
+                System.out.print("PlayInfo.PlayURL = " + playInfo.getPlayURL() + "\n");
+                url = playInfo.getPlayURL();
+            }
+            //Base信息
+            System.out.print("VideoBase.Title = " + response.getVideoBase().getTitle() + "\n");
+            //请求视频播放凭证
+            System.out.print("RequestId = " + response.getRequestId() + "\n");
+
+        } catch (Exception e) {
+            throw new MyException(20001, "获取视频播播放链接失败");
+        }
+        return url;
+    }
+
+    @Override
+    public void removeVideo(String id) {
+        try {
+            // 初始化对象
+            DefaultAcsClient client = InitVodClient.initVodClient(ConstantVodUtils.ACCESS_KEY_ID, ConstantVodUtils.ACCESS_KEY_SECRET);
+            // 删除视频的request对象
+            DeleteVideoRequest request = new DeleteVideoRequest();
+            // 向request设置视频id
+            request.setVideoIds(id);
+            // 调用初始化对象的方法实现删除
+            client.getAcsResponse(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(20001, "删除视频失败");
         }
     }
 
