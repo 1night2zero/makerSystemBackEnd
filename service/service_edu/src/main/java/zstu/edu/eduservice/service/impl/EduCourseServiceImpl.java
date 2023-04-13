@@ -97,6 +97,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     // 删除课程
     @Override
     public void removeCourse(String courseId) {
+        // TODO 删除失败，有很大概率是课程是逻辑删除的缘故导致的。。。。。可以检查一下
         // 根据课程id删除小节
         videoService.removeVideoByCourseId(courseId);
         // 根据课程id删除章节

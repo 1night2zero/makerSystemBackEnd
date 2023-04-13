@@ -11,6 +11,8 @@ import zstu.edu.vod.service.VodService;
 import zstu.edu.vod.utils.ConstantVodUtils;
 import zstu.edu.vod.utils.InitVodClient;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/edu-vod/video")
 @CrossOrigin
@@ -40,5 +42,17 @@ public class VodController {
     public R removeAlyVideo(@PathVariable String id) {
         vodService.removeVideo(id);
         return R.ok();
+    }
+
+    // 删除多个视频
+    @DeleteMapping("delete-batch")
+    public R deleteBatch(@RequestParam("videoIdList") List<String> videoIdList) {
+        try {
+            vodService.removeAlyVideoList(videoIdList);
+            return R.ok();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(20001, "删除视频失败");
+        }
     }
 }
