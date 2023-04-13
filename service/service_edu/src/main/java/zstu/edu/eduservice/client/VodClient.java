@@ -9,7 +9,8 @@ import zstu.edu.commonutils.R;
 
 import java.util.List;
 
-@FeignClient("service-vod")
+@FeignClient(name = "service-vod", fallback = VodFileDegradeFeignClient.class)
+// 这里的name是要调用的服务的名称(在注册中心注册的名称), fallback是熔断器的方法(当调用的服务出错时,会调用这个方法)
 @Component
 public interface VodClient {
 

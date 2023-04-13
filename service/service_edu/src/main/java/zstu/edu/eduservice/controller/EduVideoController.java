@@ -38,7 +38,7 @@ public class EduVideoController {
     }
 
     // 删除小节
-    // TODO 后面要删除小节里面的视频
+    // 后面要删除小节里面的视频
     @DeleteMapping("{id}")
     public R deleteVideo(@PathVariable String id) {
         // 根据小节id获取到视频id
