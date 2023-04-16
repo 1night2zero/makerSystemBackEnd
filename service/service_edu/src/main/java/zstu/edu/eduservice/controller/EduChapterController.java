@@ -1,17 +1,13 @@
 package zstu.edu.eduservice.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import zstu.edu.commonutils.R;
 import zstu.edu.eduservice.entity.EduChapter;
-import zstu.edu.eduservice.entity.EduVideo;
 import zstu.edu.eduservice.entity.chapter.ChapterVo;
 import zstu.edu.eduservice.service.EduChapterService;
-import zstu.edu.eduservice.service.EduVideoService;
-import zstu.edu.servicebase.exceptionhandler.MyException;
 
 import java.util.List;
 

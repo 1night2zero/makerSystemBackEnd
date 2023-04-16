@@ -14,7 +14,6 @@ import zstu.edu.commonutils.R;
 import zstu.edu.eduservice.entity.EduTeacher;
 import zstu.edu.eduservice.entity.vo.TeacherQuery;
 import zstu.edu.eduservice.service.EduTeacherService;
-import zstu.edu.servicebase.exceptionhandler.MyException;
 
 import java.util.List;
 

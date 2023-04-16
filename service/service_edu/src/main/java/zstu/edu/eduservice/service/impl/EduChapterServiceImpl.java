@@ -3,7 +3,6 @@ package zstu.edu.eduservice.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import zstu.edu.commonutils.R;
 import zstu.edu.eduservice.entity.EduChapter;
 import zstu.edu.eduservice.entity.EduVideo;
 import zstu.edu.eduservice.entity.chapter.ChapterVo;
