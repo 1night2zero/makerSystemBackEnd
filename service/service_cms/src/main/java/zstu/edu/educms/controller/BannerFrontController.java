@@ -1,5 +1,6 @@
 package zstu.edu.educms.controller;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class BannerFrontController {
     @GetMapping("getAllBanner")
     public R getAllBanner() {
         List<CrmBanner> list = bannerService.getBannerList();
-        return R.ok().data("list",list);
+        return R.ok().data("list", list);
     }
 }
 
