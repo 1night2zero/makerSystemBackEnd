@@ -1,9 +1,14 @@
 package zstu.edu.eduservice.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import zstu.edu.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import zstu.edu.eduservice.entity.frontvo.CourseFrontVo;
+import zstu.edu.eduservice.entity.frontvo.CourseWebVo;
 import zstu.edu.eduservice.entity.vo.CourseInfoVo;
 import zstu.edu.eduservice.entity.vo.CoursePublishVo;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -29,4 +34,9 @@ public interface EduCourseService extends IService<EduCourse> {
 
     // 删除课程
     void removeCourse(String courseId);
+
+    // 前端展示页
+    Map<String, Object> getCourseFrontList(Page<EduCourse> coursePage, CourseFrontVo courseFrontVo);
+    // 课程基本基本信息
+    CourseWebVo getBaseCourseInfo(String courseId);
 }
