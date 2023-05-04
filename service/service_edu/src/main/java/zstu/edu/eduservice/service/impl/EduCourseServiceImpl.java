@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
 import zstu.edu.eduservice.entity.EduCourse;
 import zstu.edu.eduservice.entity.EduCourseDescription;
@@ -42,6 +43,9 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     private EduVideoService videoService;
     @Autowired
     private EduChapterService chapterService;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     // 添加课程基本信息的方法
     @Override
@@ -161,5 +165,21 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Override
     public CourseWebVo getBaseCourseInfo(String courseId) {
         return baseMapper.getBaseCourseInfo(courseId);
+    }
+
+    @Override
+    public List<EduCourse> getTopCourses(int limit) {
+        // 使用 Redis 缓存
+        String cacheKey = "top_courses:" + limit;
+        List<EduCourse> courses = (List<EduCourse>) redisTemplate.opsForValue().get(cacheKey);
+        if (courses == null) {
+            // 缓存中没有数据，查询数据库
+            QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<>();
+            queryWrapper.orderByDesc("view_count").last("limit " + limit);
+            courses = baseMapper.selectList(queryWrapper);
+            // 将查询结果存入缓存
+            redisTemplate.opsForValue().set(cacheKey, courses);
+        }
+        return courses;
     }
 }

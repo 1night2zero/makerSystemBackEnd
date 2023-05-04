@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zstu.edu.eduservice.mapper.EduCourseMapper">
     <!--sql: 根据课程id查询课程确认信息-->
-    <sql id="getPublishCourseInfo">
+    <select id="getPublishCourseInfo" resultType="zstu.edu.eduservice.entity.vo.CoursePublishVo">
         select c.id,
                c.title,
                c.cover,
@@ -18,7 +18,7 @@
                  left join edu_subject s1 on c.subject_parent_id = s1.id
                  left join edu_course_description d on c.id = d.id
         where c.id = #{courseId}
-    </sql>
+    </select>
     <select id="getBaseCourseInfo" resultType="zstu.edu.eduservice.entity.frontvo.CourseWebVo">
         SELECT ec.id,ec.title,ec.price,ec.lesson_num AS lessonNum,ec.cover,
                ec.buy_count AS buyCount,ec.view_count AS viewCount,
