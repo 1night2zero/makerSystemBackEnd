@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2023-04-24
  */
 @RestController
-@RequestMapping("/eduservice/ucenter-member")
+@RequestMapping("/ucenterservice/ucenter-member")
 public class UcenterMemberController {
     @Autowired
     private UcenterMemberService memberService;
@@ -48,6 +48,8 @@ public class UcenterMemberController {
     public R getMemberInfo(HttpServletRequest request){
         // 使用jwt工具类从token获取
         String memberId = JwtUtils.getMemberIdByJwtToken(request);
+        System.out.println("member:"+memberId);
+        System.out.println("request:"+request.getHeader("token"));
         // 调用数据库通过id查具体信息
         UcenterMember member = memberService.getById(memberId);
         return R.ok().data("userInfo", member);

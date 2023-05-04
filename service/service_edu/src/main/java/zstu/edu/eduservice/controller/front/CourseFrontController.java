@@ -25,7 +25,7 @@ import java.util.Map;
  * @create 2021-11-12 15:33
  */
 @CrossOrigin
-//@RestController
+@RestController
 @RequestMapping("/eduservice/courseFront")
 public class CourseFrontController {
 

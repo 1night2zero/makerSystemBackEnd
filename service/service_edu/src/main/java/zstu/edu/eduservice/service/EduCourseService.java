@@ -8,6 +8,7 @@ import zstu.edu.eduservice.entity.frontvo.CourseWebVo;
 import zstu.edu.eduservice.entity.vo.CourseInfoVo;
 import zstu.edu.eduservice.entity.vo.CoursePublishVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,4 +40,6 @@ public interface EduCourseService extends IService<EduCourse> {
     Map<String, Object> getCourseFrontList(Page<EduCourse> coursePage, CourseFrontVo courseFrontVo);
     // 课程基本基本信息
     CourseWebVo getBaseCourseInfo(String courseId);
+
+    List<EduCourse> getTopCourses(int limit);
 }
