@@ -1,0 +1,1 @@
+copy /a *.sql full_db.sql
