@@ -86,5 +86,12 @@ public class EduCourseController {
         eduCourseService.removeCourse(courseId);
         return R.ok();
     }
+
+    // 获取热门课程
+    @GetMapping("getTopCourses")
+    public R getTopCourses() {
+        List<EduCourse> list = eduCourseService.getTopCourses(6);
+        return R.ok().data("list", list);
+    }
 }
 
