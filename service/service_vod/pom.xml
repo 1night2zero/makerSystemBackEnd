@@ -54,21 +54,10 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
-        <!--
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-sdk-vod-upload</artifactId>
         </dependency>
-        -->
-        <!-- 04/25 2023 程序无法编译 -->
-        <dependency>
-            <groupId>com.aliyun.vod</groupId>
-            <artifactId>upload</artifactId>
-            <version>1.4.15</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/lib/aliyun-java-vod-upload-1.4.15.jar</systemPath>
-        </dependency>
-
 
     </dependencies>
     <build>
