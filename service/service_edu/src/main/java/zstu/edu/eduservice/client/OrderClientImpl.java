@@ -2,10 +2,7 @@ package zstu.edu.eduservice.client;
 
 import org.springframework.stereotype.Component;
 
-/**
- * @author ITNXD
- * @create 2021-11-16 21:48
- */
+
 @Component
 public class OrderClientImpl implements OrderClient{
 

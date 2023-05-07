@@ -42,8 +42,6 @@ hs_err_pid*
 ### VS Code ###
 .vscode/
 
-### maven ###
-*.properties
 
 ### target ###
 target/

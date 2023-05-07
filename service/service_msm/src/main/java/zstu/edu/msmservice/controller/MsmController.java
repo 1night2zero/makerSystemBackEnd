@@ -46,4 +46,28 @@ public class MsmController {
             return R.error().message("发送短信失败");
         }
     }
+
+    //发送邮箱验证码的方法
+    @GetMapping("send/{mailAdress}")
+    public R sendMsm(@PathVariable("mailAdress") String mailAdress) {
+        //1 从redis获取验证码，如果获取到 直接返回
+        String code = redisTemplate.opsForValue().get(mailAdress);
+        if (!StringUtils.isEmpty(code)) {
+            return R.ok();
+        }
+        //2 如果redis获取不到，进行阿里云发送
+        //生成随机值 传递阿里云进行发送
+        code = RandomUtil.getSixBitRandom();
+        //调用service发短信息的方法
+        boolean isSend = msmService.send(code, mailAdress);
+        if (isSend) {
+            //发送成功，把发送成功验证码放到redis里面
+            redisTemplate.opsForValue().set(mailAdress, code, 5, TimeUnit.MINUTES);
+            //设置有效时间
+            return R.ok();
+        } else {
+            return R.error().message("邮件发送失败");
+        }
+
+    }
 }
