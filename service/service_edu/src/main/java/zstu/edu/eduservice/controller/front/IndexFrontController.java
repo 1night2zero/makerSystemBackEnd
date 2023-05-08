@@ -14,13 +14,8 @@ import zstu.edu.eduservice.service.EduCourseService;
 import zstu.edu.eduservice.service.EduTeacherService;
 
 import java.util.List;
-
-/**
- * @author ITNXD
- * @create 2021-11-09 18:46
- */
 @RestController
-//@CrossOrigin
+@CrossOrigin
 @RequestMapping("/eduservice/indexfront")
 public class IndexFrontController {
 
