@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/ucenterservice/ucenter-member")
+@CrossOrigin
 public class UcenterMemberController {
     @Autowired
     private UcenterMemberService memberService;
@@ -39,6 +40,7 @@ public class UcenterMemberController {
     // 注册
     @PostMapping("/register")
     public R register(@RequestBody RegisterVo registerVo){
+        System.out.println("registerVo:"+registerVo);
         memberService.register(registerVo);
         return R.ok();
     }

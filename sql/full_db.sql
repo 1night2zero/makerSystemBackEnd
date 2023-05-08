@@ -394,4 +394,62 @@ CREATE TABLE `ucenter_member` (
                                   `gmt_create` datetime NOT NULL COMMENT '创建时间',
                                   `gmt_modified` datetime NOT NULL COMMENT '更新时间',
                                   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+
+create table forum_category
+(
+    id           char(19)                     not null comment '分类 ID'
+        primary key,
+    name         varchar(50)                  not null comment '分类名称',
+    description  varchar(255)                 null comment '分类描述',
+    sort         int unsigned     default '0' not null comment '排序',
+    is_deleted   tinyint unsigned default '0' not null comment '是否被删除',
+    gmt_create   datetime                     not null comment '创建时间',
+    gmt_modified datetime                     not null comment '修改时间'
+)
+    comment '论坛分类表';
+
+create table forum_comment
+(
+    id           char(19)                     not null comment '评论 ID'
+        primary key,
+    post_id      char(19)                     not null comment '帖子 ID',
+    user_id      char(19)                     not null comment '用户 ID',
+    content      text                         null comment '评论内容',
+    parent_id    char(19)                     null comment '父级评论 ID',
+    is_deleted   tinyint unsigned default '0' not null comment '是否被删除',
+    gmt_create   datetime                     not null comment '创建时间',
+    gmt_modified datetime                     not null comment '修改时间'
+)
+    comment '论坛评论表';
+
+create table forum_post
+(
+    id             char(19)                     not null comment '帖子 ID'
+        primary key,
+    user_id        char(19)                     not null comment '用户 ID',
+    category_id    char(19)                     not null comment '分类 ID',
+    title          varchar(100)                 not null comment '帖子标题',
+    content        text                         null comment '帖子内容',
+    view_count     int unsigned     default '0' not null comment '浏览量',
+    reply_count    int unsigned     default '0' not null comment '回复量',
+    like_count     int unsigned     default '0' not null comment '点赞量',
+    favorite_count int unsigned     default '0' not null comment '收藏量',
+    is_deleted     tinyint unsigned default '0' not null comment '是否被删除',
+    gmt_create     datetime                     not null comment '创建时间',
+    gmt_modified   datetime                     not null comment '修改时间'
+)
+    comment '论坛帖子表';
+
+create table forum_user_action
+(
+    id           char(19)                     not null comment '操作 ID'
+        primary key,
+    user_id      char(19)                     not null comment '用户 ID',
+    post_id      char(19)                     not null comment '帖子 ID',
+    action_type  enum ('like', 'favorite')    not null comment '操作类型：点赞或收藏',
+    is_deleted   tinyint unsigned default '0' not null comment '是否被删除',
+    gmt_create   datetime                     not null comment '创建时间',
+    gmt_modified datetime                     not null comment '修改时间'
+) comment '用户操作表（包括收藏和点赞）';
+

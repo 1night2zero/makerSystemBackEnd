@@ -102,6 +102,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     public CoursePublishVo getPublishCourseInfo(String id) {
         // 调用mapper
         CoursePublishVo coursePublishVo = baseMapper.getPublishCourseInfo(id);
+        System.err.println(coursePublishVo);
         return coursePublishVo;
     }
 

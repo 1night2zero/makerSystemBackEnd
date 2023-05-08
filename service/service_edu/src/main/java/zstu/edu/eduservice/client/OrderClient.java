@@ -5,10 +5,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-/**
- * @author ITNXD
- * @create 2021-11-16 21:47
- */
 @Component
 @FeignClient(name = "service-order",fallback = OrderClientImpl.class)
 public interface OrderClient {

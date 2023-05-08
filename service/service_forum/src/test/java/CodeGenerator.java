@@ -1,5 +1,3 @@
-package zstu.edu.demo;
-
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -26,7 +24,7 @@ public class CodeGenerator {
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("C:\\Users\\asus\\Desktop\\maker_system_backend\\service\\service_edu" + "/src/main/java");
+        gc.setOutputDir("C:\\Users\\asus\\Desktop\\maker_system_backend\\service\\service_forum" + "/src/main/java");
 
         gc.setAuthor("mier");
         gc.setOpen(false); //生成后是否打开资源管理器
@@ -46,13 +44,13 @@ public class CodeGenerator {
         dsc.setUrl("jdbc:mysql://localhost:3306/mybatis_plus?serverTimezone=GMT%2B8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("");
+        dsc.setPassword("mr991212.");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("eduservice"); //模块名
+        pc.setModuleName("forumservice"); //模块名
         //包  zstu.edu.eduservice
         pc.setParent("zstu.edu");
         //包  zstu.edu.eduservice.controller
@@ -65,7 +63,7 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
 
-        strategy.setInclude("edu_course","edu_course_description","edu_chapter","edu_video");
+        strategy.setInclude("forum_post","forum_category","forum_comment","forum_user_action");
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀

@@ -66,7 +66,10 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         String mobile = registerVo.getMobile();
         String nickname = registerVo.getNickname();
         String password = registerVo.getPassword();
-
+        System.out.println("code:" + code);
+        System.out.println("mobile:" + mobile);
+        System.out.println("nickname:" + nickname);
+        System.out.println("password:" + password);
         // 非空判断
         if (StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password)
                 || StringUtils.isEmpty(nickname) || StringUtils.isEmpty(code)) {

@@ -9,14 +9,14 @@
                c.price,
                c.lesson_num,
                d.description,
-               c.subject_id,
-               c.subject_parent_id,
-               c.teacher_id
+               s1.title AS subjectLevelOne,
+               s2.title AS subjectLevelTwo,
+               t.name   as teacherName
         from edu_course c
                  left join edu_teacher t on c.teacher_id = t.id
                  left join edu_subject s2 on c.subject_id = s2.id
                  left join edu_subject s1 on c.subject_parent_id = s1.id
-                 left join edu_course_description d on c.id = d.id
+                 left join edu_course_description d on  d.id = c.id
         where c.id = #{courseId}
     </select>
     <select id="getBaseCourseInfo" resultType="zstu.edu.eduservice.entity.frontvo.CourseWebVo">
